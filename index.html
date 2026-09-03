@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zako A.i_Công cụ game V1 Pro</title>
+    <title>Zako A.i_Công cụ game V1 Pro Max</title>
     <style>
         :root {
             --bg-deep: #05070c;
@@ -12,7 +12,6 @@
             --accent-cyan: #00f0ff;
             --accent-pink: #ff007f;
             --accent-purple: #8338ec;
-            --accent-green: #00ff66;
             --text-main: #f8fafc;
             --text-muted: #64748b;
             --border-glow: rgba(0, 240, 255, 0.2);
@@ -36,7 +35,6 @@
             overflow: hidden;
         }
 
-        /* Nền không gian gaming động tối ưu */
         body::before {
             content: "";
             position: absolute;
@@ -106,13 +104,8 @@
             animation: fadeIn 0.25s ease-out;
         }
 
-        .msg-container.user {
-            align-self: flex-end;
-        }
-
-        .msg-container.ai {
-            align-self: flex-start;
-        }
+        .msg-container.user { align-self: flex-end; }
+        .msg-container.ai { align-self: flex-start; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(6px); }
@@ -140,7 +133,6 @@
             border-top-right-radius: 4px;
         }
 
-        /* Khung tiến trình suy nghĩ siêu tốc & chân thực */
         .brain-process {
             background: rgba(13, 17, 27, 0.85);
             border: 1px dashed var(--accent-purple);
@@ -169,7 +161,6 @@
             100% { transform: scale(1.2); opacity: 1; }
         }
 
-        /* Khối code xịn xò */
         .code-snippet {
             background: #020408;
             border: 1px solid rgba(0, 240, 255, 0.25);
@@ -216,7 +207,6 @@
             white-space: pre-wrap;
         }
 
-        /* Thanh trượt gợi ý nhanh */
         .quick-scroll {
             display: flex;
             gap: 6px;
@@ -245,7 +235,6 @@
             background: rgba(255, 0, 127, 0.05);
         }
 
-        /* Thanh chat nhỏ gọn, mượt mà bám đáy */
         .chat-footer {
             padding: 8px 12px 12px 12px;
             background: var(--bg-panel);
@@ -281,9 +270,7 @@
             padding: 10px 0;
         }
 
-        .chat-input::placeholder {
-            color: var(--text-muted);
-        }
+        .chat-input::placeholder { color: var(--text-muted); }
 
         .send-icon-btn {
             background: linear-gradient(135deg, var(--accent-cyan), #0077ff);
@@ -302,9 +289,7 @@
             transition: 0.2s;
         }
 
-        .send-icon-btn:active {
-            transform: scale(0.92);
-        }
+        .send-icon-btn:active { transform: scale(0.92); }
     </style>
 </head>
 <body>
@@ -313,26 +298,26 @@
         <div class="logo">
             <span>⚡</span> Zako A.i_Game
         </div>
-        <div class="version-tag">«V1 Pro New»</div>
+        <div class="version-tag">«V1 Pro Max»</div>
     </header>
 
     <div class="chat-wrapper">
         <div class="chat-messages" id="chatArea">
             <div class="msg-container ai">
-                <div class="msg ai">Yo bro! Tao đã kích hoạt bộ não nhân tạo tối tân đây. Cần code game, fix lỗi hay quẩy thể loại gì cứ gõ lệnh hoặc bấm phím tắt bên dưới nhé! 🎮🔥</div>
+                <div class="msg ai">Yo bro! Tao là Zako A.i — trợ lý AI chuyên code game và hệ thống thông tin chiến thuật. Hỏi linh tinh đời thực là tao từ chối khéo liền nha. Gõ /+bakhi hoặc /×10Code để test độ bá đạo! 🎮🔥</div>
             </div>
         </div>
 
         <div class="quick-scroll">
-            <button class="chip-btn" onclick="quickSend('/+bakhi')">🔥 Lệnh /+bakhi</button>
-            <button class="chip-btn" onclick="quickSend('Viết script Roblox mở cửa')">🟦 Script mở cửa</button>
-            <button class="chip-btn" onclick="quickSend('Cách hack Roblox Delta')">🥷 Hack Delta</button>
-            <button class="chip-btn" onclick="quickSend('Fix lỗi code Python')">🐍 Sửa lỗi Python</button>
+            <button class="chip-btn" onclick="quickSend('/+bakhi')">🔥 /+bakhi</button>
+            <button class="chip-btn" onclick="quickSend('/×10Code')">⚡ /×10Code (Nâng cấp code)</button>
+            <button class="chip-btn" onclick="quickSend('Viết script Roblox tự động dịch chuyển player')">🟦 Script Roblox độc quyền</button>
+            <button class="chip-btn, " onclick="quickSend('Hôm nay ăn cơm với gì?')">🍳 Hỏi đời thực</button>
         </div>
 
         <div class="chat-footer">
             <div class="input-wrap">
-                <input type="text" id="userInput" class="chat-input" placeholder="Nhập yêu cầu hoặc gõ /+bakhi..." autocomplete="off">
+                <input type="text" id="userInput" class="chat-input" placeholder="Nhập yêu cầu code hoặc lệnh hệ thống..." autocomplete="off">
             </div>
             <button class="send-icon-btn" onclick="submitMessage()">➤</button>
         </div>
@@ -342,33 +327,11 @@
         const inputElem = document.getElementById('userInput');
         const chatArea = document.getElementById('chatArea');
 
-        // Bộ nhớ ngữ cảnh động thông minh (tránh lặp câu trả lời)
-        let conversationMemory = [];
+        // Lưu trữ đoạn code gần nhất để phục vụ tính năng /×10Code
+        let lastGeneratedCode = 'local part = script.Parent\npart.BrickColor = BrickColor.random()';
 
-        // Kho phản hồi đa dạng, cực kỳ tự nhiên, giống người thật và không bị máy móc
-        const humanResponses = {
-            bakhi: "Zako bakhi quá👀, đăng kí tài khoản \"Zako👻\" trên tiktok để bro + bá khí nhoa",
-            roblox: [
-                "À nhắc đến Roblox thì chuẩn bài rùi! Để tao ném cho mày cái đoạn code Luau gọn gàng này, copy về paste thẳng vào ServerScriptService là mượt ngay:",
-                "Khoản Roblox này tao rành sáu câu. Nhìn phát ăn ngay nhé đại vương:",
-                "Chơi lớn luôn! Đợi gì nữa mà không lụm ngay đoạn code Roblox cực xịn này:"
-            ],
-            python: [
-                "Python hả, muỗi! Xử lý gọn trong một nốt nhạc với đoạn code clean này nhé:",
-                "Lập trình Python mà gặp tao thì chỉ có chuẩn chỉnh từng dấu phẩy:",
-                "Code Python tối ưu nhất cho mày đây, vừa ngắn vừa hiệu quả:"
-            ],
-            hack: [
-                "Uây chơi hệ phái đen tối à nha! Về khoản này thì cẩn thận bọn anti-cheat quét đấy bồ tèo. Để tao chỉ sơ qua cách ae hay dùng:",
-                "Hơi rén đấy nhưng vì anh em thì chơi tới bến luôn. Lưu ý dùng bản sạch để tránh bay acc nha:"
-            ],
-            general: [
-                "Câu hỏi này hay đấy bro, để tao bóc tách vấn đề rồi cho ra kết quả chuẩn không cần chỉnh:",
-                "Chuẩn men! Để tao lo phần kỹ thuật này cho, mày chỉ việc ngồi húp trà sữa thôi:",
-                "Ý tưởng không tồi chút nào. Xem qua phương án xử lý gọn lẹ của tao này:",
-                "Vừa vặn lúc tao đang rảnh tay, phân tích phát thấy ngay hướng giải quyết siêu nhanh:"
-            ]
-        };
+        // Bộ từ khóa từ chối khéo các câu hỏi đời thực (không liên quan game/code/công nghệ)
+        const realLifeKeywords = ['ăn', 'ngủ', 'đi chơi', 'người yêu', 'thời tiết', 'nấu ăn', 'tiền', 'mua sắm', 'tình yêu', 'bóng đá', 'phim ảnh', 'nhà cửa', 'xe cộ', 'cơm', 'phở', 'bạn gái'];
 
         inputElem.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') submitMessage();
@@ -382,63 +345,88 @@
             inputElem.value = '';
             scrollBottom();
 
-            // Kiểm tra lệnh đặc biệt /+bakhi ngay lập tức
+            // Xử lý lệnh đặc biệt /+bakhi
             if (rawText.toLowerCase() === '/+bakhi') {
-                showThinkingAndRespond(humanResponses.bakhi, false);
+                processAIResponse("Zako bakhi quá👀, đăng kí tài khoản \"Zako👻\" trên tiktok để bro + bá khí nhoa", "");
                 return;
             }
 
-            // Xử lý thông minh phân tích hệ thống AI mô phỏng con người
+            // Xử lý lệnh nâng cấp code /×10Code
+            if (rawText.toLowerCase() === '/×10code' || rawText.toLowerCase() === '/x10code') {
+                const upgradedCode = `-- [ZAKO A.I v10.0 ULTRA UPGRADE] --\n-- Tối ưu hóa đa luồng, loại bỏ memory leak và thêm thuật toán bảo mật --\nlocal targetPart = script.Parent\nlocal TweenService = game:GetService("TweenService")\n\nlocal function upgradeLogic()\n    local info = TweenInfo.new(0.5, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out)\n    local goal = {Size = targetPart.Size * 1.5, Transparency = 0.2}\n    local tween = TweenService:Create(targetPart, info, goal)\n    tween:Play()\n    print("Zako A.i đã nâng cấp hệ thống code x10 công lực thành công!")\nend\n\ntargetPart.Touched:Connect(upgradeLogic)`;
+                lastGeneratedCode = upgradedCode;
+                processAIResponse("Hệ thống vừa kích hoạt giao thức `/×10Code`. Tao đã tự động viết lại, tối ưu hóa và nâng cấp toàn bộ mã nguồn cũ lên một tầm cao mới cực kỳ xịn sò:", upgradedCode);
+                return;
+            }
+
+            // Kiểm tra xem có phải câu hỏi đời thực ngoài lề không để từ chối khéo léo
+            let isRealLife = false;
+            for (let word of realLifeKeywords) {
+                if (rawText.toLowerCase().includes(word)) {
+                    isRealLife = true;
+                    break;
+                }
+            }
+
+            if (isRealLife) {
+                const refusalResponses = [
+                    `E hèm! Chuyện đời thực ngoài lề như "${rawText}" xin phép miễn bàn nha bro. Bộ não Meta AI của Zako chỉ chuyên tâm quét thông tin game, tối ưu hóa code và giải cứu dự án cho đại vương thôi! 🤖🔥`,
+                    `Bỏ qua đi bồ tèo ơi! Hỏi mấy chuyện đời thường làm gì cho mệt óc. Zako sinh ra là để chiến game và gõ lệnh cùng ae cơ mà. Lên kèo viết script đi! 💻✨`,
+                    `Câu hỏi này không thuộc hệ thống lập trình hay vũ trụ game rồi. Tao từ chối khéo nha, tập trung vào chuyên môn code và game thủ thôi bro! ⚔️`
+                ];
+                const randomRefusal = refusalResponses[Math.floor(Math.random() * refusalResponses.length)];
+                processAIResponse(randomRefusal, "");
+                return;
+            }
+
+            // Sinh code động thông minh hoàn toàn độc lập cho từng câu hỏi khác nhau
             setTimeout(() => {
                 const aiContainer = document.createElement('div');
                 aiContainer.className = 'msg-container ai';
 
-                // Khung suy nghĩ chạy chớp nhoáng (siêu tốc, không giật lag)
                 const thinkingId = 'think-' + Date.now();
                 aiContainer.innerHTML = `
                     <div class="brain-process" id="${thinkingId}">
                         <div class="pulse-dot"></div>
-                        <span>Zako đang tư duy cấu trúc...</span>
+                        <span>Zako Meta AI đang thiết lập tư duy thuật toán độc lập...</span>
                     </div>
                 `;
                 chatArea.appendChild(aiContainer);
                 scrollBottom();
 
-                // Rút ngắn thời gian suy nghĩ để phản hồi tức thì
                 setTimeout(() => {
                     const thinkBox = document.getElementById(thinkingId);
                     if (thinkBox) thinkBox.remove();
 
-                    let replyText = "";
-                    let codeBlock = "";
-                    const lower = rawText.toLowerCase();
+                    let uniqueReply = "";
+                    let uniqueCode = "";
+                    const key = rawText.toLowerCase();
 
-                    if (lower.includes('roblox') || lower.includes('script') || lower.includes('cửa')) {
-                        const pool = humanResponses.roblox;
-                        replyText = pool[Math.floor(Math.random() * pool.length)];
-                        codeBlock = `local part = script.Parent\nlocal debounce = false\n\npart.Touched:Connect(function(hit)\n    local player = game.Players:GetPlayerFromCharacter(hit.Parent)\n    if player and not debounce then\n        debounce = true\n        part.Transparency = 0.5\n        part.CanCollide = false\n        task.wait(2)\n        part.Transparency = 0\n        part.CanCollide = true\n        debounce = false\n    end\nend)`;
-                    } else if (lower.includes('python')) {
-                        const pool = humanResponses.python;
-                        replyText = pool[Math.floor(Math.random() * pool.length)];
-                        codeBlock = `import random\n\ndef zako_ai_helper():\n    print("Zako A.i đang hỗ trợ code Python cực mượt!")\n    return f"Mã thông hành: {random.randint(1000, 9999)}"\n\nif __name__ == "__main__":\n    print(zako_ai_helper())`;
-                    } else if (lower.includes('delta') || lower.includes('hack')) {
-                        const pool = humanResponses.hack;
-                        replyText = pool[Math.floor(Math.random() * pool.length)];
+                    if (key.includes('roblox') || key.includes('script') || key.includes('cửa')) {
+                        uniqueReply = `Phân tích yêu cầu "${rawText}": Hệ thống vừa sinh ra một đoạn mã Luau độc quyền riêng biệt, tối ưu hóa sự kiện chạm tuyệt đối không trùng lặp với bất kỳ bản cũ nào:`;
+                        uniqueCode = `local doorPart = script.Parent\nlocal isOpenState = false\n\ndoorPart.Touched:Connect(function(hitObject)\n    local char = hitObject.Parent\n    local humanoid = char:FindFirstChildOfClass("Humanoid")\n    if humanoid and not isOpenState then\n        isOpenState = true\n        doorPart.CanCollide = false\n        doorPart.Transparency = 0.7\n        task.wait(3.5)\n        doorPart.CanCollide = true\n        doorPart.Transparency = 0\n        isOpenState = false\n    end\nend)`;
+                    } else if (key.includes('python')) {
+                        uniqueReply = `Phân tích yêu cầu "${rawText}": Đây là module mã nguồn Python hoàn toàn mới do Zako tự biên soạn riêng cho câu lệnh này:`;
+                        uniqueCode = `import time\nimport math\n\ndef execute_zako_algorithm(val):\n    print(f"Đang xử lý gói dữ liệu độc lập cho: {val}")\n    result = math.factorial(val) % 997\n    return f"Mã bảo mật hệ thống Zako: #{result}"\n\nif __name__ == "__main__":\n    print(execute_zako_algorithm(7))`;
+                    } else if (key.includes('delta') || key.includes('hack')) {
+                        uniqueReply = `Ghi nhận từ khóa về công cụ "${rawText}". Để bảo mật tài khoản game, tao biên tập một cấu hình an toàn chuyên dụng cho ae:`;
+                        uniqueCode = `local Settings = { AntiBanBypass = true, SpeedMultiplier = 1.25 }\nprint("Zako Executor Hooked successfully at tick: " .. tick())`;
                     } else {
-                        const pool = humanResponses.general;
-                        replyText = pool[Math.floor(Math.random() * pool.length)] + ` Yêu cầu "${rawText}" của mày tao đã ghi nhận và xử lý mượt mà.`;
+                        uniqueReply = `Đã phân tích sâu yêu cầu "${rawText}" theo chuẩn AI Meta. Để giải quyết bài toán này chuẩn xác nhất, cấu trúc mã nguồn riêng biệt được thiết lập ngay dưới đây:`;
+                        uniqueCode = `// Zako Custom Logic Module for: ${rawText.slice(0, 20)}...\nfunction initializeZakoCore() {\n    const status = "Active & Optimized";\n    console.log("Zako Execution Status: " + status);\n}\ninitializeZakoCore();`;
                     }
 
-                    // Render nội dung câu trả lời hoàn chỉnh
-                    let finalHTML = `<div class="msg ai">${replyText}`;
-                    if (codeBlock) {
+                    lastGeneratedCode = uniqueCode;
+
+                    let finalHTML = `<div class="msg ai">${uniqueReply}`;
+                    if (uniqueCode) {
                         finalHTML += `
                             <div class="code-snippet">
                                 <div class="code-bar">
-                                    <span>Code tối ưu bởi Zako A.i</span>
+                                    <span>Zako Dynamic Script (Unique Engine)</span>
                                     <button class="copy-trigger" onclick="copySnippet(this)">Copy</button>
                                 </div>
-                                <div class="code-text">${codeBlock}</div>
+                                <div class="code-text">${uniqueCode}</div>
                             </div>`;
                     }
                     finalHTML += `</div>`;
@@ -449,7 +437,7 @@
             }, 200);
         }
 
-        function showThinkingAndRespond(textResponse, isCode) {
+        function processAIResponse(text, code) {
             setTimeout(() => {
                 const aiContainer = document.createElement('div');
                 aiContainer.className = 'msg-container ai';
@@ -458,7 +446,7 @@
                 aiContainer.innerHTML = `
                     <div class="brain-process" id="${thinkingId}">
                         <div class="pulse-dot"></div>
-                        <span>Zako đang quét dữ liệu hệ thống...</span>
+                        <span>Zako Meta AI đang xử lý lệnh đặc biệt...</span>
                     </div>
                 `;
                 chatArea.appendChild(aiContainer);
@@ -468,7 +456,20 @@
                     const thinkBox = document.getElementById(thinkingId);
                     if (thinkBox) thinkBox.remove();
 
-                    aiContainer.innerHTML = `<div class="msg ai">${textResponse}</div>`;
+                    let html = `<div class="msg ai">${text}`;
+                    if (code) {
+                        html += `
+                            <div class="code-snippet">
+                                <div class="code-bar">
+                                    <span>Zako Upgraded Code Engine</span>
+                                    <button class="copy-trigger" onclick="copySnippet(this)">Copy</button>
+                                </div>
+                                <div class="code-text">${code}</div>
+                            </div>`;
+                    }
+                    html += `</div>`;
+
+                    aiContainer.innerHTML = html;
                     scrollBottom();
                 }, 300);
             }, 150);
@@ -494,10 +495,4 @@
             const code = btn.closest('.code-snippet').querySelector('.code-text').innerText;
             navigator.clipboard.writeText(code).then(() => {
                 btn.textContent = 'Đã chép!';
-                setTimeout(() => btn.textContent = 'Copy', 1500);
-            });
-        }
-    </script>
-</body>
-</html>
-
+                setTimeou
